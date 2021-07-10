@@ -26,6 +26,7 @@
                     content += " </tbody>";
                     departments.append(content);
                     $("#list").append(list);
+
                     table2 = $('#dataTableDepartment').DataTable();
                 }
 
@@ -315,7 +316,7 @@
 
 
         $(document).ready(function () {
-        $('#addE').on("click", function (e) {
+            $('#departmentPageTable').on("click", function (e) {
             e.preventDefault();
             var id = $('#id').val();
             var name = $('#name').val();

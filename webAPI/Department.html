@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <script>
+        var dict = {};
+        $(document).ready(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'api/department',
+                success: function(data) {
+                    var select = "";
+                    $.each(data,
+                        function (index, value) {
+                            dict[value.id]= value.employees;
+                            select += "<option class='js-click' department-id='"+value.id+"'>" + value.name + "</option>";
+                        });
+                    $("#departmentPageSelect").append(select);
+                }
+            });
+            $("#departmentPageSelect").on("change",
+                function () {
+
+                    var optionSelected = $("option:selected", this);
+                    var table = $("#departmentPageTable tbody");
+                    table.empty();
+                    if (dict[optionSelected.attr("department-id")].length == 0) {
+                        $("#NoEmployee").text("No Employee In This Department");
+                    } else {
+                        $("#NoEmployee").text("");
+                        var content = "";
+                        for (var i = 0; i < dict[optionSelected.attr("department-id")].length; i++) {
+                            content += ("<tr><td>" +
+                                dict[optionSelected.attr("department-id")][i].id +
+                                " </td>" +
+                                "<td>" +
+                                dict[optionSelected.attr("department-id")][i].name +
+                                " </td>" +
+                                "<td>" +
+                                dict[optionSelected.attr("department-id")][i].date_of_hiring.substring(0,10) +
+                                " </td>" +
+                                "<td>" +
+                                dict[optionSelected.attr("department-id")][i].sex+
+                                " </td></tr>");
+
+                        }
+                        table.append(content);
+                    }
+                });
+
+        });
+
+    </script>
+</head>
+<body>
+    <select id="departmentPageSelect" class="form-select">
+        <option style="display: none" id="0">Department </option>
+    </select>
+<h5 id="NoEmployee" style="margin: 20px;text-align: center; color: red"></h5>
+<table id="departmentPageTable" class ="table table-bordered">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Date Of Hiring</th>
+        <th>Gender</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</body>
+</html>
