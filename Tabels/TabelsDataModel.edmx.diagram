@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="EmplyeePageModel.department" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="EmplyeePageModel.employee" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="EmplyeePageModel.FK_emplyee_department" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="EmplyeePageModel.credential" Width="1.5" PointX="5.25" PointY="1.125" />
+        <AssociationConnector Association="EmplyeePageModel.FK_credential_employee" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

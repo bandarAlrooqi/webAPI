@@ -10,25 +10,18 @@
 using System.Runtime.Serialization;
 
 namespace Tabels
-{  using System;
+{
+    using System;
     using System.Collections.Generic;
-
     [KnownType(typeof(employee))]
     [KnownType(typeof(department))]
     [KnownType(typeof(credential))]
-    public partial class department
+    public partial class credential
     {
-        
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public department()
-        {
-            this.employees = new HashSet<employee>();
-        }
-    
+        public string user_name { get; set; }
+        public string passcode { get; set; }
         public int id { get; set; }
-        public string name { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public  ICollection<employee> employees { get; set; }
+        public virtual employee employee { get; set; }
     }
 }

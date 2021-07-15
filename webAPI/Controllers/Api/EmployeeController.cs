@@ -20,7 +20,8 @@ namespace webAPI.Controllers.WebAPI
                 switch (gender.ToLower())
                 {
                     case "all":
-                        return Request.CreateResponse(HttpStatusCode.OK, entities.employees.Include(e=>e.department1).ToList());
+
+                        return Request.CreateResponse(HttpStatusCode.OK, entities.employees.Include(c=>c.credentials).Include(d=>d.department1).ToList());
                     case "male":
                         return Request.CreateResponse(HttpStatusCode.OK, entities.employees.Where(e=>e.sex.ToLower() == "male").ToList());
                     case "female":

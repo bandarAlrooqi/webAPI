@@ -4,7 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EmplyeePageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EmplyeePageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="credential">
+          <Key>
+            <PropertyRef Name="user_name" />
+          </Key>
+          <Property Name="user_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="passcode" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="department">
           <Key>
             <PropertyRef Name="id" />
@@ -22,6 +30,18 @@
           <Property Name="sex" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="department" Type="int" />
         </EntityType>
+        <Association Name="FK_credential_employee">
+          <End Role="employee" Type="Self.employee" Multiplicity="1" />
+          <End Role="credential" Type="Self.credential" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="credential">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_emplyee_department">
           <End Role="department" Type="Self.department" Multiplicity="0..1" />
           <End Role="employee" Type="Self.employee" Multiplicity="*" />
@@ -35,15 +55,19 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="EmplyeePageModelStoreContainer">
+          <EntitySet Name="credential" EntityType="Self.credential" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="department" EntityType="Self.department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_credential_employee" Association="Self.FK_credential_employee">
+            <End Role="employee" EntitySet="employee" />
+            <End Role="credential" EntitySet="credential" />
+          </AssociationSet>
           <AssociationSet Name="FK_emplyee_department" Association="Self.FK_emplyee_department">
             <End Role="department" EntitySet="department" />
             <End Role="employee" EntitySet="employee" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EmplyeePageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -65,6 +89,7 @@
           <Property Name="sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="department" Type="Int32" />
           <NavigationProperty Name="department1" Relationship="Self.FK_emplyee_department" FromRole="employee" ToRole="department" />
+          <NavigationProperty Name="credentials" Relationship="EmplyeePageModel.FK_credential_employee" FromRole="employee" ToRole="credential" />
         </EntityType>
         <Association Name="FK_emplyee_department">
           <End Role="department" Type="Self.department" Multiplicity="0..1" />
@@ -85,7 +110,33 @@
             <End Role="department" EntitySet="departments" />
             <End Role="employee" EntitySet="employees" />
           </AssociationSet>
+          <EntitySet Name="credentials" EntityType="EmplyeePageModel.credential" />
+          <AssociationSet Name="FK_credential_employee" Association="EmplyeePageModel.FK_credential_employee">
+            <End Role="employee" EntitySet="employees" />
+            <End Role="credential" EntitySet="credentials" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="credential">
+          <Key>
+            <PropertyRef Name="user_name" />
+          </Key>
+          <Property Name="user_name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="passcode" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="employee" Relationship="EmplyeePageModel.FK_credential_employee" FromRole="credential" ToRole="employee" />
+        </EntityType>
+        <Association Name="FK_credential_employee">
+          <End Type="EmplyeePageModel.employee" Role="employee" Multiplicity="1" />
+          <End Type="EmplyeePageModel.credential" Role="credential" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="credential">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -108,6 +159,15 @@
                 <ScalarProperty Name="date_of_hiring" ColumnName="date_of_hiring" />
                 <ScalarProperty Name="sex" ColumnName="sex" />
                 <ScalarProperty Name="department" ColumnName="department" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="credentials">
+            <EntityTypeMapping TypeName="EmplyeePageModel.credential">
+              <MappingFragment StoreEntitySet="credential">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="passcode" ColumnName="passcode" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

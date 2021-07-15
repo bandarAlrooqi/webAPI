@@ -18,23 +18,15 @@ namespace Tabels
         public EmplyeePageEntities()
             : base("name=EmplyeePageEntities")
         {
-            this.Configuration.LazyLoadingEnabled = false;
-            this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<employee>().HasOptional(x => x.department1);
-            modelBuilder.Entity<employee>().HasKey<int>(i => i.id);
-            modelBuilder.Entity<department>().HasKey<int>(i => i.id);
-        
-            
-
+            throw new UnintentionalCodeFirstException();
         }
     
         public virtual DbSet<department> departments { get; set; }
         public virtual DbSet<employee> employees { get; set; }
-
-
+        public virtual DbSet<credential> credentials { get; set; }
     }
 }

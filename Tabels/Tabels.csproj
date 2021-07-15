@@ -53,10 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="credential.cs">
+      <DependentUpon>TabelsDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="department.cs">
       <DependentUpon>TabelsDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Employee.cs">
+    <Compile Include="employee.cs">
       <DependentUpon>TabelsDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -17,7 +17,7 @@ namespace webAPI.Controllers.Api
         {
             using (var entities = new EmplyeePageEntities())
             {
-                return Request.CreateResponse(HttpStatusCode.OK, entities.departments.Include(e => e.employees).ToList());
+                return Request.CreateResponse(HttpStatusCode.OK, entities.departments.Include(e=>e.employees).ToList());
             }
         }
         [HttpGet]
@@ -38,7 +38,7 @@ namespace webAPI.Controllers.Api
         {
             try
             {
-              /  using (var entities = new EmplyeePageEntities())
+                using (var entities = new EmplyeePageEntities())
                 {
                     entities.departments.Add(de);
                     entities.SaveChanges();
