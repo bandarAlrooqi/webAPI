@@ -3,6 +3,34 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <script src="Scripts/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function (){
+            $("#logIn").click(function (){
+              
+                const username="BB";
+                const password = "M";
+                $.ajax({
+                    url:"api/Authorization/IsValid",
+                    type:"GET",
+                    data:{username,password },
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (result) {
+                        console.log(result.d);
+                        console.log(result);
+                        if(result.d === "true"){
+                            alert("Boolean True");
+                        }else{
+                            alert("Boolean False");
+                        }
+
+                    }
+                });
+                
+            });
+        });
+    </script>
 </head>
 <body>
 <form ng-submit="login()">

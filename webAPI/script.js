@@ -119,7 +119,6 @@ let table2;
 
     bootbox.confirm("Are you sure you want to edit this department?", function (result) {
         if (result) {
-            console.log("Here in dep");
             $.ajax({
                 url: "/api/department/" + button.attr("data-department-id"),
                 method: "PUT",
