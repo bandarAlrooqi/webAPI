@@ -10,6 +10,7 @@ using webAPI.Models;
 
 namespace webAPI.Controllers.WebAPI
 {
+    [Authorize]
     public class EmployeeController : ApiController
     {
         [HttpGet]
@@ -20,7 +21,6 @@ namespace webAPI.Controllers.WebAPI
                 switch (gender.ToLower())
                 {
                     case "all":
-
                         return Request.CreateResponse(HttpStatusCode.OK, entities.employees.Include(c=>c.credentials).Include(d=>d.department1).ToList());
                     case "male":
                         return Request.CreateResponse(HttpStatusCode.OK, entities.employees.Where(e=>e.sex.ToLower() == "male").ToList());
@@ -117,7 +117,7 @@ namespace webAPI.Controllers.WebAPI
                     entity.date_of_hiring = em.date_of_hiring;
                     entity.sex = em.sex.Trim();
                     var dep = entities.departments.FirstOrDefault(i => i.name.ToLower().Trim().Equals(em.departmentName.ToLower()));
-                    entity.department = dep.id;
+                    entity.department = (dep.id);
                     entity.department1 = dep;
                     entities.SaveChanges();
                     return Request.CreateResponse(HttpStatusCode.OK);

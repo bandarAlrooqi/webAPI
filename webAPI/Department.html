@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <meta charset="utf-8" />
     <title></title>
@@ -9,13 +9,13 @@
     <script src="Scripts/bootstrap.min.js"></script>
 
     <script>
-        var dict = {};
+        const dict = {};
         $(document).ready(function () {
             $.ajax({
                 type: 'GET',
                 url: 'api/department',
                 success: function(data) {
-                    var select = "";
+                    let select = "";
                     $.each(data,
                         function (index, value) {
                             dict[value.id]= value.employees;
@@ -27,15 +27,15 @@
             $("#departmentPageSelect").on("change",
                 function () {
 
-                    var optionSelected = $("option:selected", this);
-                    var table = $("#departmentPageTable tbody");
+                    const optionSelected = $("option:selected", this);
+                    const table = $("#departmentPageTable tbody");
                     table.empty();
-                    if (dict[optionSelected.attr("department-id")].length == 0) {
+                    if (dict[optionSelected.attr("department-id")].length === 0) {
                         $("#NoEmployee").text("No Employee In This Department");
                     } else {
                         $("#NoEmployee").text("");
-                        var content = "";
-                        for (var i = 0; i < dict[optionSelected.attr("department-id")].length; i++) {
+                        let content = "";
+                        for (let i = 0; i < dict[optionSelected.attr("department-id")].length; i++) {
                             content += ("<tr><td>" +
                                 dict[optionSelected.attr("department-id")][i].id +
                                 " </td>" +
