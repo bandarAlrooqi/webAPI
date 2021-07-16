@@ -10,7 +10,7 @@ using webAPI.Models;
 
 namespace webAPI.Controllers.WebAPI
 {
-    [Authorize]
+    [Authorize (Roles="admin")]
     public class EmployeeController : ApiController
     {
         [HttpGet]
