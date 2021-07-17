@@ -8,13 +8,12 @@
         $(document).ready(function (){
             $("#logIn").click(function (){
               
-                const username="BB";
-                const password = "M";
+                var username="BB";
+                var password = "MM";
                 $.ajax({
-                    url:"api/Authorization/IsValid",
+                    url:"api/authorization",
                     type:"GET",
-                    data:{username,password },
-                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({ userName: username, password: password }),
                     dataType: "json",
                     success: function (result) {
                         console.log(result.d);

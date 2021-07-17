@@ -26,5 +26,14 @@ namespace webAPI.Controllers.Api
             }
            
         }
+        [HttpGet]
+        public HttpResponseMessage IsValid()
+        {
+            using (var entities = new EmplyeePageEntities())
+            {
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+           
+        }
     }
 }
