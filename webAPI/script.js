@@ -70,6 +70,7 @@ let table2;
             }
             $.ajax({
                 type: "POST",
+                headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 url: "api/department/AddDepartment",
                 data: {
                     id: id,
@@ -166,8 +167,7 @@ let table2;
             $.ajax({
         type: 'GET',
                 url: 'api/employee',
-                dataType: 'Json',
-                headers: { Authorization: $`Bearer ${sessionStorage.getItem("token")}` },
+                headers: {Authorization: "Bearer "+sessionStorage.getItem("token") },
                 success: function (data) {
                     let content = "<tbody>";
                     $.each(data,
@@ -194,7 +194,9 @@ let table2;
                     if (result) {
         $.ajax({
             url: "/api/employee/" + button.attr("data-employee-id"),
+           
             method: "DELETE",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
             success: function () {
                 table.row(button.parents("tr")).remove().draw();
             }
@@ -228,6 +230,7 @@ let table2;
         $.ajax({
             url: "/api/employee/" + button.attr("data-employee-id"),
             method: "PUT",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
             dataType: "JSON",
             data: {
                 name: tr.find("td:eq(1)").html(),
