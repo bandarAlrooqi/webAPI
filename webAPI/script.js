@@ -7,6 +7,7 @@ let table2;
         $.ajax({
         type: 'GET',
                 url: 'api/department',
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 dataType: 'Json',
                 success: function (data) {
                     let content = "<tbody>";
@@ -42,6 +43,7 @@ let table2;
         $.ajax({
             url: "/api/department/" + button.attr("data-department-id"),
             method: "DELETE",
+            headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
             success: function () {
                 table2.row(button.parents("tr")).remove().draw();
             }
@@ -125,6 +127,7 @@ let table2;
             $.ajax({
                 url: "/api/department/" + button.attr("data-department-id"),
                 method: "PUT",
+                headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 dataType: "JSON",
                 data: {
                     name: tr.find("td:eq(1)").html().trim()
@@ -293,7 +296,7 @@ let table2;
                     const sex = document.getElementById('sex' + id);
                     const compare = del.style.display;
                     if (compare !== "none") {
-        edit.style.display = "none";
+                         edit.style.display = "none";
                         del.style.display = "none";
                         save.style.display = "";
                         cancel.style.display = "";
@@ -303,7 +306,7 @@ let table2;
                         sex.contentEditable = 'true';
                         button.parents("tr").bgColor = "black";
                     } else {
-        edit.style.display = "";
+                        edit.style.display = "";
                         del.style.display = "";
                         cancel.style.display = "none";
                         save.style.display = "none";
@@ -313,18 +316,13 @@ let table2;
                         sex.contentEditable = 'false';
                     }
                 });
-        });
-
-
-        $(document).ready(function () {
-            $('#departmentPageTable').on("click", function (e) {
+        $('#addE').on("click", function (e) {
             e.preventDefault();
-                const id = $('#id').val();
-                const name = $('#name').val();
-                const gender = $('#gender').children(":selected").attr("id");
-                const date = $('#date').val();
-                const dep = $("#list").children(":selected").attr("id");
-                console.log(dep);
+            const id = $('#id').val();
+            const name = $('#name').val();
+            const gender = $('#gender').children(":selected").attr("id");
+            const date = $('#date').val();
+            const dep = $("#list").children(":selected").attr("id");
 
             $(".error").remove();
 
@@ -345,24 +343,24 @@ let table2;
                 return;
             }
             if (dep === "none") {
-                $('#gender').after('<span class="error">This field is required</span>');
+                $('#list').after('<span class="error">This field is required</span>');
                 return;
             }
             $.ajax({
                 type: "POST",
                 url: "api/employee/AddEmployees",
+                headers: { Authorization: "Bearer " + sessionStorage.getItem("token") },
                 data: {
                     id: id,
                     name: name,
                     date_of_hiring: date,
                     sex: gender === "1" ? "Male" : "Female",
                     department: dep
-                }
-                //success:
-
+                },
+                success:
+                    location.reload()
 
             });
-            location.reload();
+           
         });
-
         });

@@ -9,7 +9,7 @@ using Tabels;
 
 namespace webAPI.Controllers.Api
 {
-    
+    [Authorize (Roles="admin")]
     public class DepartmentController : ApiController
     {
         // GET api/<controller>

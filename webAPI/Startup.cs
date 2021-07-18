@@ -22,7 +22,7 @@ namespace webAPI
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromSeconds(5000),
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(1),
                 Provider = provider
             };
             

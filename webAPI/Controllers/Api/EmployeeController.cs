@@ -84,8 +84,13 @@ namespace webAPI.Controllers.WebAPI
                 using (var entities = new EmplyeePageEntities())
                 {
                     var entity = entities.employees.FirstOrDefault(i => i.id == id);
+                    
                     if (entity != null)
                     {
+                        var credential = entities.credentials.FirstOrDefault(e => e.id == id);
+                        if(credential != null)
+                            entities.credentials.Remove(credential);
+                        
                         entities.employees.Remove(entity);
                         entities.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK);
