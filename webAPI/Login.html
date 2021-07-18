@@ -4,34 +4,10 @@
     <meta charset="utf-8" />
     <title></title>
     <script src="Scripts/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function (){
-            $("#logIn").click(function (){
-              
-                const username="BB";
-                const password = "MM";
-                $.ajax({
-                    url:"api/authorization",
-                    type:"GET",
-                    data: JSON.stringify({ userName: username, password: password }),
-                    dataType: "json",
-                    success: function (result) {
-                        console.log(result.d);
-                        console.log(result);
-                        if(result.d === "true"){
-                            alert("Boolean True");
-                        }else{
-                            alert("Boolean False");
-                        }
+    <script src="Access.js"></script>
 
-                    }
-                });
-                
-            });
-        });
-    </script>
 </head>
-<body>
+<body id ="logInPage">
 <form ng-submit="login()">
 <table>
     <tbody>

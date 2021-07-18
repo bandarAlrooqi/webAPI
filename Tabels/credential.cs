@@ -22,6 +22,6 @@ namespace Tabels
         public string passcode { get; set; }
         public int id { get; set; }
     
-        public virtual employee employee { get; set; }
+        public  employee employee { get; set; }
     }
 }

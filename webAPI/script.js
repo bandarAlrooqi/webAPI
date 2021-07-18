@@ -1,7 +1,9 @@
-﻿let list = "";
+﻿
+let list = "";
 let table2;
     $(document).ready(function () {
         const departments = $('#dataTableDepartment');
+        
         $.ajax({
         type: 'GET',
                 url: 'api/department',
@@ -159,13 +161,13 @@ let table2;
 //////////////////////////////////////////////////////////////////////////////////
     let table;
     $(document).ready(function () {
-
-            var employees = $('#dataTableEmployee');
+            console.log(sessionStorage.getItem("token"));
+            const employees = $('#dataTableEmployee');
             $.ajax({
         type: 'GET',
                 url: 'api/employee',
                 dataType: 'Json',
-
+                headers: { Authorization: $`Bearer ${sessionStorage.getItem("token")}` },
                 success: function (data) {
                     let content = "<tbody>";
                     $.each(data,
